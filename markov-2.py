@@ -18,7 +18,7 @@ def open_and_read_file(file_path):
     return raw_text
 
 
-def make_chains(text_string):
+def make_chains(text_string, n):
     """Take input text as string; return dictionary of Markov chains.
 
     A chain will be a key that consists of a tuple of (word1, word2)
@@ -48,11 +48,11 @@ def make_chains(text_string):
     # created tokenized list of words
     words = text_string.split()
     # iterate through first through second to last word
-    for i in range(len(words) - 1):
+    for i in range(len(words) - (n-1)):
         # create tuple for word[i] and word[i +1]
-        new_key = (words[i], words[i + 1])
-        if (i + 2) < len(words):
-            new_val = words[i + 2]
+        new_key = tuple(words[i: (i + n)])
+        if (i + n) < len(words):
+            new_val = words[i + n]
         else:
             new_val = None
 
@@ -102,9 +102,8 @@ input_text = open_and_read_file(input_path)
 # print input_text
 
 # Get a Markov chain
-chains = make_chains(input_text)
-
-# print chains
+chains = make_chains(input_text, 3)
+#print chains
 # Produce random text
 random_text = make_text(chains)
 
