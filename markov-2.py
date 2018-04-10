@@ -68,10 +68,12 @@ def make_chains(text_string, n):
 def make_text(chains, n):
     """Return text from chains."""
 
-    words = []
+    words = list(choice(chains.keys()))
 
     # choose random key, cast tuple as list
-    words = list(choice(chains.keys()))
+    while words[0][0].isupper() is False:
+        words = list(choice(chains.keys()))
+  
 
     # while loop until value == None
 
