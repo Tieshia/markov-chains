@@ -69,7 +69,26 @@ def make_text(chains):
 
     words = []
 
-    # your code goes here
+    # choose random key, cast tuple as list
+    first_key = list(choice(chains.keys()))
+
+    words.extend(first_key)
+
+    # while loop until value == None
+
+    test_key = tuple(first_key)
+
+    while chains[test_key] != [None]:
+        new_word = choice(chains[test_key])
+
+        # append a random value from chains[key] to words[]
+        words.append(new_word)
+
+        # key = words[-2, -1]
+        test_key = (words[-2], words[-1])
+
+
+    # convert list to string
 
     return " ".join(words)
 
@@ -84,8 +103,8 @@ input_text = open_and_read_file(input_path)
 # Get a Markov chain
 chains = make_chains(input_text)
 
-print chains
+# print chains
 # Produce random text
-#random_text = make_text(chains)
+random_text = make_text(chains)
 
-#print random_text
+print random_text
