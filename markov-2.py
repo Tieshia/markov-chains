@@ -4,16 +4,18 @@ from random import choice
 import sys
 
 
-def open_and_read_file(file_path):
+def open_and_read_file(*file_paths):
     """Take file path as string; return text as string.
 
     Takes a string that is a file path, opens the file, and turns
     the file's contents as one string of text.
     """
+    raw_text = ""
 
-    # your code goes here
-    with open(file_path) as origin_text:
-        raw_text = origin_text.read()
+    for file_path in file_paths[0]:
+        # your code goes here
+        with open(file_path) as origin_text:
+            raw_text += origin_text.read()
 
     return raw_text
 
@@ -79,14 +81,20 @@ def make_text(chains, n):
 
     test_key = tuple(words)
 
-    while chains[test_key] != [None]:
+    while words[-1] is not None:
         new_word = choice(chains[test_key])
 
         # append a random value from chains[key] to words[]
         words.append(new_word)
 
         # key = words[-2, -1]
+        # if words[-1] is None:
+        #     del words[-1]
+
         test_key = tuple(words[-n:])
+
+    words = words[: -1]
+    #print words
 
 
     # convert list to string
@@ -94,10 +102,11 @@ def make_text(chains, n):
     return " ".join(words)
 
 
-input_path = sys.argv[1]
+input_path = sys.argv[1:]
 
-def run_all_functions(file_path, n):
-    input_text = open_and_read_file(file_path)
+def run_all_functions(file_paths, n):
+
+    input_text = open_and_read_file(file_paths)
 
     chains = make_chains(input_text, n)
 
