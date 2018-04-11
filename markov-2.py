@@ -87,10 +87,6 @@ def make_text(chains, n):
         # append a random value from chains[key] to words[]
         words.append(new_word)
 
-        # key = words[-2, -1]
-        # if words[-1] is None:
-        #     del words[-1]
-
         test_key = tuple(words[-n:])
 
     words = words[: -1]
@@ -101,10 +97,16 @@ def make_text(chains, n):
 
     return " ".join(words)
 
+def make_paragraphs(all_text):
+    """ Creates paragraphs within text."""
+
+
+
 
 input_path = sys.argv[1:]
 
 def run_all_functions(file_paths, n):
+    """Calls all functions in order to create markov chain text from source(s)."""
 
     input_text = open_and_read_file(file_paths)
 
